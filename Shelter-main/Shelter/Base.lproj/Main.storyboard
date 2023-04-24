@@ -460,6 +460,13 @@
                                     <constraint firstItem="Q7a-ux-f1k" firstAttribute="leading" secondItem="yv8-Tb-neU" secondAttribute="leading" constant="30" id="zXC-7c-r3h"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0s-MI-PYo">
+                                <rect key="frame" x="44" y="292" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shelter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5RI-Dh-8Zq">
                                 <rect key="frame" x="130" y="61" width="133" height="56"/>
                                 <constraints>
@@ -511,7 +518,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start your mental health quiz!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bfm-RX-cgY">
-                                <rect key="frame" x="89" y="190" width="215" height="123.66666666666669"/>
+                                <rect key="frame" x="89" y="190" width="215" height="214"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="Wqa-J8-wVY"/>
                                     <constraint firstAttribute="width" constant="215" id="aZ6-EA-QMM"/>
@@ -521,7 +528,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X6R-Sz-s3g">
-                                <rect key="frame" x="47" y="385.66666666666669" width="298" height="52"/>
+                                <rect key="frame" x="47" y="476" width="298" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="298" id="JCr-3r-lMI"/>
                                     <constraint firstAttribute="height" constant="52" id="eQA-ES-ej2"/>
@@ -541,7 +548,7 @@
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FEp-WC-MWB">
-                                <rect key="frame" x="47" y="457.66666666666669" width="298" height="52"/>
+                                <rect key="frame" x="47" y="548" width="298" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="2UF-PQ-Ji9"/>
                                     <constraint firstAttribute="width" constant="298" id="Ace-hs-0ti"/>
@@ -561,7 +568,7 @@
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6Y-Mu-ZpC">
-                                <rect key="frame" x="47" y="529.66666666666663" width="298" height="52"/>
+                                <rect key="frame" x="47" y="620" width="298" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="1tu-ti-JEZ"/>
                                     <constraint firstAttribute="width" constant="298" id="pi2-sc-VIC"/>
@@ -581,7 +588,7 @@
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDI-JU-y84">
-                                <rect key="frame" x="47" y="600.66666666666663" width="298" height="52"/>
+                                <rect key="frame" x="47" y="691" width="298" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="pqb-H2-NQh"/>
                                     <constraint firstAttribute="width" constant="298" id="rUj-tQ-Sdu"/>
@@ -604,7 +611,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which test do you want to take?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8G-sR-crs">
-                                <rect key="frame" x="74" y="323.66666666666669" width="245" height="24"/>
+                                <rect key="frame" x="74" y="414" width="245" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="245" id="Nyz-oX-9TQ"/>
                                     <constraint firstAttribute="height" constant="24" id="wsl-vw-W66"/>
@@ -861,6 +868,9 @@
                                     <fontDescription key="titleFontDescription" name="Inter-Regular_SemiBold" family="Inter" pointSize="16"/>
                                     <color key="baseBackgroundColor" red="0.12549020350000001" green="0.25098040700000002" blue="0.1294117719" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="9h5-go-K5R" kind="show" id="mI4-rZ-tTa"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1Bu-s0-FdT"/>
@@ -973,6 +983,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ghM-Ie-Su8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="951.90839694656484" y="2190.8450704225352"/>
+        </scene>
+        <!--Find Professionals Near Me-->
+        <scene sceneID="53i-pI-D8r">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="9h5-go-K5R" customClass="FindProfessionalsNearMe" customModule="Shelter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Hk-dS-9l9">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDD-KA-mLW">
+                                <rect key="frame" x="37" y="25" width="57" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZp-wy-9qf">
+                                <rect key="frame" x="21.666666666666657" y="232" width="350" height="570"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MeC-He-HZV">
+                                        <rect key="frame" x="-10" y="0.0" width="370" height="570"/>
+                                        <color key="backgroundColor" red="0.158909631" green="0.3144933956" blue="0.16206902579999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="0.49227530800000002" green="0.728811553" blue="0.22844265450000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="370" id="It3-iW-62n"/>
+                                            <constraint firstAttribute="height" constant="570" id="my7-Rz-IS2"/>
+                                        </constraints>
+                                        <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="sectionIndexTrackingBackgroundColor" red="0.158909631" green="0.3144933956" blue="0.16206902579999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.158909631" green="0.3144933956" blue="0.16206902579999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="MeC-He-HZV" firstAttribute="centerX" secondItem="DZp-wy-9qf" secondAttribute="centerX" id="ZMT-EP-QmI"/>
+                                    <constraint firstItem="MeC-He-HZV" firstAttribute="centerY" secondItem="DZp-wy-9qf" secondAttribute="centerY" id="adD-27-bWT"/>
+                                    <constraint firstAttribute="height" constant="570" id="iqf-TE-zaN"/>
+                                    <constraint firstAttribute="width" constant="350" id="qTS-jS-oAj"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="e5w-Ep-nl9"/>
+                        <color key="backgroundColor" red="0.65671953220000001" green="1" blue="0.42246163949999999" alpha="0.92997980440000005" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DZp-wy-9qf" firstAttribute="centerX" secondItem="2Hk-dS-9l9" secondAttribute="centerX" id="fVQ-i5-2tm"/>
+                            <constraint firstItem="pDD-KA-mLW" firstAttribute="top" secondItem="e5w-Ep-nl9" secondAttribute="top" constant="25" id="k9v-Dd-Crf"/>
+                            <constraint firstItem="e5w-Ep-nl9" firstAttribute="bottom" secondItem="DZp-wy-9qf" secondAttribute="bottom" constant="50" id="sZE-mQ-5PS"/>
+                            <constraint firstItem="pDD-KA-mLW" firstAttribute="leading" secondItem="e5w-Ep-nl9" secondAttribute="leading" constant="37" id="uIu-6f-sJF"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="WVt-T8-UdL"/>
+                    <connections>
+                        <outlet property="professionalsTableView" destination="MeC-He-HZV" id="GlK-wA-uJK"/>
+                        <outlet property="searchResultLabel" destination="pDD-KA-mLW" id="M9c-Fg-b5G"/>
+                        <outlet property="searchResultView" destination="DZp-wy-9qf" id="4Fp-Pb-TYt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A9a-fe-ezo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4270.9923664122134" y="2190.8450704225352"/>
         </scene>
     </scenes>
     <resources>

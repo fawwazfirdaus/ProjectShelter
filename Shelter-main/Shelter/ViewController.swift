@@ -5,6 +5,7 @@
 //  Created by Jismi Jesmani on 4/2/23.
 //
 
+import CoreData
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
@@ -46,6 +47,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizer
 
         passwordTextField.layer.borderColor = UIColor.black.cgColor
         passwordTextField.layer.borderWidth = 1.0
+        
+        passwordTextField.isSecureTextEntry = true
 
 
         
@@ -78,6 +81,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizer
         let logInButtonText = "Log In"
         let attributedTitleTwo = NSMutableAttributedString(string: logInButtonText, attributes: part2Attributes)
         logInButton.setAttributedTitle(attributedTitleTwo, for: .normal)
+        
+
+        fetchUsers()
     }
 
 
@@ -97,7 +103,80 @@ class ViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizer
         }
         return true
     }
+    
+    func fetchUsers() {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
 
+            do {
+                let users = try context.fetch(fetchRequest)
+                
+                // Print the fetched users in Xcode output
+                for (index, user) in users.enumerated() {
+                    let username = user.value(forKey: "username") as? String ?? ""
+                    let phoneNumber = user.value(forKey: "phoneNumber") as? String ?? ""
+                    let password = user.value(forKey: "password") as? String ?? ""
+                    print("User \(index + 1):")
+                    print("Username: \(username)")
+                    print("Phone Number: \(phoneNumber)")
+                    print("Password: \(password)")
+                    print("------------------------")
+                }
+                
+            } catch let error as NSError {
+                print("Could not fetch users. \(error), \(error.userInfo)")
+            }
+        }
 
+    @IBAction func logInButtonTapped(_ sender: Any) {
+        let password = passwordTextField.text ?? ""
+            let phoneNumber = pNumberTextField.text ?? ""
+                    
+            if !phoneNumber.isEmpty && !password.isEmpty {
+                if doesUserExist(phoneNumber: phoneNumber, password: password) {
+                    // Instantiate CustomTabBarController from the storyboard
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let tabBarViewController = storyboard.instantiateViewController(withIdentifier: "CustomTabBarController") as! CustomTabBarController
+                    tabBarViewController.modalPresentationStyle = .fullScreen
+                    self.present(tabBarViewController, animated: true, completion: nil)
+                } else {
+                    print("User not found. Phone number: \(phoneNumber), password: \(password)")
+                }
+            } else {
+                print("Phone number or password is empty")
+            }
+    }
+    
+    func doesUserExist(phoneNumber: String, password: String) -> Bool {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+            fetchRequest.predicate = NSPredicate(format: "phoneNumber == %@ AND password == %@", phoneNumber, password)
+
+            do {
+                let users = try context.fetch(fetchRequest)
+                return users.count > 0
+            } catch let error as NSError {
+                print("Could not fetch users. \(error), \(error.userInfo)")
+                return false
+            }
+        }
+    
+    func deleteAllUsers() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(batchDeleteRequest)
+            print("All users deleted successfully")
+        } catch let error as NSError {
+            print("Could not delete users. \(error), \(error.userInfo)")
+        }
+    }
+    
 }
 

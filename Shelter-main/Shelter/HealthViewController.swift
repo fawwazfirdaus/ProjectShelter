@@ -16,7 +16,7 @@ class HealthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        healtContainer.layer.cornerRadius = 30 // Change this value to adjust the corner radius
+        healtContainer.layer.cornerRadius = 20 // Change this value to adjust the corner radius
         healtContainer.layer.masksToBounds = true
         
         letsFindOutButton.layer.cornerRadius = 25

@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private var highlightViews: [UIView] = []
@@ -15,6 +16,26 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         self.delegate = self
         setupHighlightViews()
+        
+        if let items = self.tabBar.items {
+            for item in items {
+                if let image = item.image {
+                    item.image = image.withRenderingMode(.alwaysTemplate)
+                }
+            }
+        }
+        self.tabBar.unselectedItemTintColor = UIColor(red: 0.62, green: 0.91, blue: 0.43, alpha: 1.0)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.updateHighlightViews()
+        }
     }
     
     private func setupHighlightViews() {
@@ -41,6 +62,20 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
         updateHighlightViews()
     }
     
+//    private func updateHighlightViews() {
+//        let itemWidth = tabBar.bounds.width / CGFloat(highlightViews.count)
+//
+//        for (index, highlightView) in highlightViews.enumerated() {
+//            let isSelected = index == selectedIndex
+//            let x = CGFloat(index) * itemWidth
+//            let centerY = tabBar.bounds.height / 2
+//            highlightView.frame = CGRect(x: x, y: 0, width: itemWidth, height: tabBar.bounds.height)
+//            highlightView.center = CGPoint(x: x + itemWidth / 2, y: centerY)
+//            highlightView.backgroundColor = isSelected ? UIColor(red: 0.62, green: 0.91, blue: 0.43, alpha: 1.0) : .clear
+//
+//        }
+//    }
+    
     private func updateHighlightViews() {
         let itemWidth = tabBar.bounds.width / CGFloat(highlightViews.count)
         
@@ -48,12 +83,18 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
             let isSelected = index == selectedIndex
             let x = CGFloat(index) * itemWidth
             let centerY = tabBar.bounds.height / 2
-            highlightView.frame = CGRect(x: x, y: 0, width: itemWidth, height: tabBar.bounds.height)
+            
+            // Change the highlight view's frame to be a square
+            let sideLength = tabBar.bounds.height * 0.7
+            highlightView.frame = CGRect(x: x, y: 0, width: sideLength, height: sideLength)
             highlightView.center = CGPoint(x: x + itemWidth / 2, y: centerY)
-            highlightView.backgroundColor = isSelected ? UIColor(red: 0.6, green: 1.0, blue: 0.3, alpha: 1.0) : .clear
-
+            
+            // Update the corner radius to create a circular highlight
+            highlightView.layer.cornerRadius = sideLength / 2
+            highlightView.backgroundColor = isSelected ? UIColor(red: 0.62, green: 0.91, blue: 0.43, alpha: 1.0) : .clear
         }
     }
+
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         guard let fromView = selectedViewController?.view, let toView = viewController.view else {

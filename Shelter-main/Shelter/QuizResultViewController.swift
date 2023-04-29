@@ -13,11 +13,13 @@ class QuizResultViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet var getHelpButton: UIButton!
     @IBOutlet var resourceButton: UIButton!
+    @IBOutlet var scoreLabel: UILabel!
     
     var quizResult: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        scoreLabel.text = "Your score is \(quizResult ?? Int()) out of 30"
         displayQuizResult()
         
         navigationItem.hidesBackButton = true
@@ -72,9 +74,13 @@ class QuizResultViewController: UIViewController {
 
         let buttons = [getHelpButton, resourceButton]
         for button in buttons {
-            button?.layer.cornerRadius = 25
-            button?.clipsToBounds = true
-            button?.titleLabel?.font = font
+            button!.layer.cornerRadius = 25
+            button!.clipsToBounds = true
+            button!.titleLabel!.font = font
         }
     }
 }
+
+//            let title = button!.title(for: .normal) ?? ""
+//            let attributedTitle = NSAttributedString(string: title, attributes: [.font: font!])
+//            button!.setAttributedTitle(attributedTitle, for: .normal)

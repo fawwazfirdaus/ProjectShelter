@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "heartIcon25.png",
+      "filename" : "MapView.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "heartIcon 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "heartIcon75.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

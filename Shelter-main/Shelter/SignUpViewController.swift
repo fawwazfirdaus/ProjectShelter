@@ -5,6 +5,7 @@
 //  Created by Jismi Jesmani on 4/13/23.
 //
 
+import CoreData
 import UIKit
 
 class SignUpViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
@@ -43,6 +44,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         pNumberTextFieldContainer.addShadow(cornerRadius: cornerRadius)
         passwordTextFieldContainer.addShadow(cornerRadius: cornerRadius)
         cPasswordTextFieldContainer.addShadow(cornerRadius: cornerRadius)
+        
+        passwordTextField.isSecureTextEntry = true
+        cPasswordTextField.isSecureTextEntry = true
         
         func setThickerPlaceholder(for textField: UITextField, placeholderText: String) {
             let attributes: [NSAttributedString.Key: Any] = [
@@ -117,5 +121,78 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         return true
     }
     
+    @IBAction func signUpButton(_ sender: Any) {
+        guard let username = usernameTextField.text, !username.isEmpty,
+              let phoneNumberString = pNumberTextField.text, !phoneNumberString.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty,
+              let confirmPassword = cPasswordTextField.text, !confirmPassword.isEmpty else {
+            // Show error: some fields are empty
+            return
+        }
+        
+        guard password == confirmPassword else {
+            // Show error: passwords do not match
+            return
+        }
+        
+        if isValueUnique(entity: "User", attribute: "username", value: username) &&
+                isValueUnique(entity: "User", attribute: "phoneNumber", value: phoneNumberString) &&
+                isValueUnique(entity: "User", attribute: "password", value: password) {
+                saveUser(username: username, phoneNumber: phoneNumberString, password: password)
+                // Navigate to CustomTabBarController
+                if let tabBarViewController = instantiateCustomTabBarController() {
+                    tabBarViewController.modalPresentationStyle = .fullScreen
+                    self.present(tabBarViewController, animated: true, completion: nil)
+                }
+            } else {
+                // Show error: one of the values is not unique
+            }
+    }
+    
+    func saveUser(username: String, phoneNumber: String, password: String) {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
 
+            let entity = NSEntityDescription.entity(forEntityName: "User", in: context)!
+            let newUser = NSManagedObject(entity: entity, insertInto: context)
+
+            newUser.setValue(username, forKey: "username")
+            newUser.setValue(phoneNumber, forKey: "phoneNumber")
+            newUser.setValue(password, forKey: "password")
+
+            do {
+                try context.save()
+                print("User saved successfully")
+                // Perform any necessary action after saving, e.g., navigate to another view controller
+
+            } catch let error as NSError {
+                print("Could not save user. \(error), \(error.userInfo)")
+            }
+        }
+    
+    func isValueUnique(entity: String, attribute: String, value: Any) -> Bool {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+            
+            if let stringValue = value as? String {
+                fetchRequest.predicate = NSPredicate(format: "%K == %@", attribute, stringValue)
+            } else if let intValue = value as? Int {
+                fetchRequest.predicate = NSPredicate(format: "%K == %d", attribute, intValue)
+            }
+
+            do {
+                let result = try context.fetch(fetchRequest)
+                return result.isEmpty
+            } catch {
+                print("Error checking uniqueness: \(error)")
+                return false
+            }
+        }
+    
+    func instantiateCustomTabBarController() -> CustomTabBarController? {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "CustomTabBarController") as? CustomTabBarController
+        return viewController
+    }
 }

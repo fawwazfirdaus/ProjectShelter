@@ -54,11 +54,10 @@ class QuizViewController: UIViewController {
 
     }
     
-    @objc func backButtonTapped(_ sender: Any) {
-        print(navigationController?.viewControllers ?? [])
-        print("Back button tapped")
-        navigationController?.popToRootViewController(animated: true)
+    @objc func backButtonTapped(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
+
 
     
     func startQuiz() {

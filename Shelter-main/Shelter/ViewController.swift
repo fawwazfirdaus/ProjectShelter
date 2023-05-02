@@ -82,7 +82,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizer
         let attributedTitleTwo = NSMutableAttributedString(string: logInButtonText, attributes: part2Attributes)
         logInButton.setAttributedTitle(attributedTitleTwo, for: .normal)
         
-        deleteAllProfessionals();
+        // deleteAllProfessionals();
         
         if !doesAnyProfessionalExist() {
             addProfessional(name: "Jesmani", phoneNumber: "1234567891", address: "1019 East Lemon Street", expertise: "Professional mentors")

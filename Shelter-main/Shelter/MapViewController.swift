@@ -14,6 +14,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     @IBOutlet var mapView: MKMapView!
     var userLocation: CLLocation?
+    var currentRoute: MKRoute?
+
     
     private let locationManager = CLLocationManager()
     
@@ -100,18 +102,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             annotation.expertise = professional.expertise
             annotation.phoneNumber = professional.phoneNumber
             
+            self.mapView.addAnnotation(annotation)
+            
             if let userLocation = self.userLocation {
-                self.calculateWalkingDistance(from: userLocation.coordinate, to: location.coordinate) { (distance, error) in
-                    if let distance = distance {
-                        annotation.subtitle = String(format: "Walking distance: %.0f meters", distance)
+                self.calculateWalkingRoute(from: userLocation.coordinate, to: location.coordinate) { (route, error) in
+                    if let distance = route?.distance {
+                        DispatchQueue.main.async {
+                            let distanceInKm = distance / 1000
+                            annotation.subtitle = String(format: "Walking distance: %.2f km", distanceInKm)
+                            self.mapView.removeAnnotation(annotation)
+                            self.mapView.addAnnotation(annotation)
+                        }
                     }
-                    self.mapView.addAnnotation(annotation)
                 }
-            } else {
-                self.mapView.addAnnotation(annotation)
             }
         }
     }
+
+
 
 
     
@@ -143,12 +151,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             \(professionalAnnotation.subtitle ?? "")
             """
             annotationView?.detailCalloutAccessoryView = detailLabel
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(annotationTapped(_:)))
+            annotationView?.addGestureRecognizer(tapGestureRecognizer)
         }
 
         return annotationView
     }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKPolyline {
+            let renderer = MKPolylineRenderer(overlay: overlay)
+            renderer.strokeColor = .red
+            renderer.lineWidth = 3
+            return renderer
+        }
+        return MKOverlayRenderer(overlay: overlay)
+    }
 
-    func calculateWalkingDistance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, completion: @escaping (Double?, Error?) -> Void) {
+
+    func calculateWalkingRoute(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, completion: @escaping (MKRoute?, Error?) -> Void) {
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: from))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: to))
@@ -159,7 +180,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             if let error = error {
                 completion(nil, error)
             } else if let route = response?.routes.first {
-                completion(route.distance, nil)
+                completion(route, nil)
             } else {
                 completion(nil, nil)
             }
@@ -167,4 +188,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
 
+    @objc func annotationTapped(_ sender: UITapGestureRecognizer) {
+        guard let annotationView = sender.view as? MKAnnotationView,
+              let professionalAnnotation = annotationView.annotation as? ProfessionalAnnotation,
+              let userCoordinate = userLocation?.coordinate else {
+            return
+        }
+
+        // Remove the previously displayed route, if any
+        if let currentRoute = currentRoute {
+            mapView.removeOverlay(currentRoute.polyline)
+        }
+
+        // Calculate the walking route
+        calculateWalkingRoute(from: userCoordinate, to: professionalAnnotation.coordinate) { [weak self] (route, error) in
+            if let route = route {
+                self?.currentRoute = route
+                self?.mapView.addOverlay(route.polyline)
+            } else {
+                print("Error calculating walking route: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
+    }
 }

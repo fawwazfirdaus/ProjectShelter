@@ -13,6 +13,7 @@ import CoreData
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
     
     @IBOutlet var mapView: MKMapView!
+    var userLocation: CLLocation?
     
     private let locationManager = CLLocationManager()
     
@@ -69,6 +70,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
+            userLocation = location
             let regionRadius: CLLocationDistance = 1000 // Meters
             let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                       latitudinalMeters: regionRadius,
@@ -77,6 +79,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             locationManager.stopUpdatingLocation() // Stop updating location after setting the initial region
         }
     }
+
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to get user's location: \(error.localizedDescription)")
@@ -96,9 +99,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             annotation.address = professional.address
             annotation.expertise = professional.expertise
             annotation.phoneNumber = professional.phoneNumber
-            self.mapView.addAnnotation(annotation)
+            
+            if let userLocation = self.userLocation {
+                self.calculateWalkingDistance(from: userLocation.coordinate, to: location.coordinate) { (distance, error) in
+                    if let distance = distance {
+                        annotation.subtitle = String(format: "Walking distance: %.0f meters", distance)
+                    }
+                    self.mapView.addAnnotation(annotation)
+                }
+            } else {
+                self.mapView.addAnnotation(annotation)
+            }
         }
     }
+
 
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -111,7 +125,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
 
         if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
         } else {
             annotationView?.annotation = annotation
@@ -126,6 +140,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             Address: \(professionalAnnotation.address ?? "")
             Expertise: \(professionalAnnotation.expertise ?? "")
             Phone: \(professionalAnnotation.phoneNumber ?? "")
+            \(professionalAnnotation.subtitle ?? "")
             """
             annotationView?.detailCalloutAccessoryView = detailLabel
         }
@@ -133,6 +148,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return annotationView
     }
 
+    func calculateWalkingDistance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, completion: @escaping (Double?, Error?) -> Void) {
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: from))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: to))
+        request.transportType = .walking
+
+        let directions = MKDirections(request: request)
+        directions.calculate { (response, error) in
+            if let error = error {
+                completion(nil, error)
+            } else if let route = response?.routes.first {
+                completion(route.distance, nil)
+            } else {
+                completion(nil, nil)
+            }
+        }
+    }
 
 
 }

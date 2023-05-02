@@ -15,6 +15,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet var mapView: MKMapView!
     var userLocation: CLLocation?
     var currentRoute: MKRoute?
+    var goButton: UIButton?
+    var selectedAnnotation: ProfessionalAnnotation?
 
     
     private let locationManager = CLLocationManager()
@@ -24,6 +26,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
         setupMapView()
         setupLocationManager()
+        setupBackButton()
         
         // Fetch all professionals
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -205,9 +208,67 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             if let route = route {
                 self?.currentRoute = route
                 self?.mapView.addOverlay(route.polyline)
+                self?.showGoButton()
             } else {
                 print("Error calculating walking route: \(error?.localizedDescription ?? "Unknown error")")
             }
         }
+    }
+    
+    func showGoButton() {
+        let button = UIButton(type: .system)
+        button.setTitle("Go", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 10
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(goButtonTapped), for: .touchUpInside)
+
+        view.addSubview(button)
+
+        NSLayoutConstraint.activate([
+            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            button.widthAnchor.constraint(equalToConstant: 100),
+            button.heightAnchor.constraint(equalToConstant: 50)
+        ])
+
+        goButton = button
+    }
+    
+    func hideGoButton() {
+        goButton?.removeFromSuperview()
+        goButton = nil
+    }
+    
+    @objc func goButtonTapped() {
+        guard let selectedAnnotation = selectedAnnotation else { return }
+        let placemark = MKPlacemark(coordinate: selectedAnnotation.coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = selectedAnnotation.title
+
+        let launchOptions = [
+            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking
+        ]
+        mapItem.openInMaps(launchOptions: launchOptions)
+    }
+
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let professionalAnnotation = view.annotation as? ProfessionalAnnotation else { return }
+        selectedAnnotation = professionalAnnotation
+    }
+
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        hideGoButton()
+        selectedAnnotation = nil
+    }
+    
+    private func setupBackButton() {
+        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = backButton
+    }
+
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }

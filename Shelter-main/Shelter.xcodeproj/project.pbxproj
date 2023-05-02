@@ -21,6 +21,7 @@
 		048E071829FD0E8A00E3E37D /* SearchPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E071729FD0E8A00E3E37D /* SearchPageViewController.swift */; };
 		790633F729E81A4200CCAA88 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7929D5EF29E81366008AAECE /* SignUpViewController.swift */; };
 		7909D3572A010AF400D5340B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7909D3562A010AF400D5340B /* MapViewController.swift */; };
+		7909D3592A01181D00D5340B /* ProfessionalAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7909D3582A01181D00D5340B /* ProfessionalAnnotation.swift */; };
 		7934609129DA24A700247942 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7934609029DA24A700247942 /* AppDelegate.swift */; };
 		7934609329DA24A700247942 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7934609229DA24A700247942 /* SceneDelegate.swift */; };
 		7934609529DA24A700247942 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7934609429DA24A700247942 /* ViewController.swift */; };
@@ -49,6 +50,7 @@
 		048E071329FCEDCB00E3E37D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		048E071729FD0E8A00E3E37D /* SearchPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageViewController.swift; sourceTree = "<group>"; };
 		7909D3562A010AF400D5340B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		7909D3582A01181D00D5340B /* ProfessionalAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalAnnotation.swift; sourceTree = "<group>"; };
 		7929D5EF29E81366008AAECE /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		7934608D29DA24A700247942 /* Shelter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7934609029DA24A700247942 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				048E071329FCEDCB00E3E37D /* HomeViewController.swift */,
 				7934609629DA24A700247942 /* Main.storyboard */,
 				7909D3562A010AF400D5340B /* MapViewController.swift */,
+				7909D3582A01181D00D5340B /* ProfessionalAnnotation.swift */,
 				048372C829F1CADC00CB510D /* Quiz.swift */,
 				79DA44AF29F5EDB4001C9011 /* ShelterDataModel.xcdatamodeld */,
 				040E2EC829EDFEFF00F215F1 /* QuizViewController.swift */,
@@ -213,6 +216,7 @@
 				048372CB29F1CEC300CB510D /* QuizResultViewController.swift in Sources */,
 				79DA44B129F5EDB4001C9011 /* ShelterDataModel.xcdatamodeld in Sources */,
 				040E2EE229EF5A0C00F215F1 /* InsideStrokeButton.swift in Sources */,
+				7909D3592A01181D00D5340B /* ProfessionalAnnotation.swift in Sources */,
 				048E071829FD0E8A00E3E37D /* SearchPageViewController.swift in Sources */,
 				79B81B8129E899FC00CE8BB5 /* CustomTabBar.swift in Sources */,
 				79F13E9529E901610096BF63 /* CustomTabBarController.swift in Sources */,

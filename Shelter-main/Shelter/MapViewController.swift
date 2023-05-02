@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreData
 
-class MapViewController: UIViewController, CLLocationManagerDelegate{
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
     
     @IBOutlet var mapView: MKMapView!
     
@@ -36,8 +36,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate{
                     guard let name = professional.name, let address = professional.address else {
                         continue
                     }
-                    addAnnotationForAddress(address, title: name)
+                    addAnnotationForAddress(address, professional: professional)
                 }
+
             } catch let error as NSError {
                 print("Could not fetch professionals. \(error), \(error.userInfo)")
             }
@@ -55,6 +56,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate{
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        mapView.delegate = self
     }
 
     private func setupLocationManager() {
@@ -79,7 +82,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate{
         print("Failed to get user's location: \(error.localizedDescription)")
     }
     
-    func addAnnotationForAddress(_ address: String, title: String) {
+    func addAnnotationForAddress(_ address: String, professional: Professionals) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarks, error) in
             guard error == nil, let placemark = placemarks?.first, let location = placemark.location else {
@@ -87,11 +90,49 @@ class MapViewController: UIViewController, CLLocationManagerDelegate{
                 return
             }
             
-            let annotation = MKPointAnnotation()
+            let annotation = ProfessionalAnnotation()
             annotation.coordinate = location.coordinate
-            annotation.title = title
+            annotation.title = professional.name
+            annotation.address = professional.address
+            annotation.expertise = professional.expertise
+            annotation.phoneNumber = professional.phoneNumber
             self.mapView.addAnnotation(annotation)
         }
     }
+
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // Don't change the user location annotation
+        if annotation is MKUserLocation {
+            return nil
+        }
+
+        let identifier = "ProfessionalAnnotation"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+        } else {
+            annotationView?.annotation = annotation
+        }
+
+        // Customize the callout
+        if let professionalAnnotation = annotation as? ProfessionalAnnotation {
+            let detailLabel = UILabel()
+            detailLabel.numberOfLines = 0
+            detailLabel.font = UIFont.systemFont(ofSize: 12)
+            detailLabel.text = """
+            Address: \(professionalAnnotation.address ?? "")
+            Expertise: \(professionalAnnotation.expertise ?? "")
+            Phone: \(professionalAnnotation.phoneNumber ?? "")
+            """
+            annotationView?.detailCalloutAccessoryView = detailLabel
+        }
+
+        return annotationView
+    }
+
+
 
 }

@@ -26,7 +26,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
         setupMapView()
         setupLocationManager()
-        setupBackButton()
+        //setupBackButton()
+        let backButton = UIButton(type: .system)
+            backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+            backButton.setTitle("Back", for: .normal)
+            backButton.contentHorizontalAlignment = .leading
+            backButton.semanticContentAttribute = .forceLeftToRight
+            backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+
+            self.view.addSubview(backButton)
+
+            backButton.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+                backButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
+                backButton.heightAnchor.constraint(equalToConstant: 44)
+            ])
         
         // Fetch all professionals
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -48,6 +63,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             } catch let error as NSError {
                 print("Could not fetch professionals. \(error), \(error.userInfo)")
             }
+    }
+    
+    @objc func backButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     private func setupMapView() {
@@ -263,12 +282,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         selectedAnnotation = nil
     }
     
-    private func setupBackButton() {
-        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
-    }
-
-    @objc func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
+//    private func setupBackButton() {
+//        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTapped))
+//        navigationItem.leftBarButtonItem = backButton
+//    }
+//
+//    @objc func backButtonTapped() {
+//        navigationController?.popViewController(animated: true)
+//    }
 }

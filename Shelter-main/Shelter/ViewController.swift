@@ -82,16 +82,18 @@ class ViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizer
         let attributedTitleTwo = NSMutableAttributedString(string: logInButtonText, attributes: part2Attributes)
         logInButton.setAttributedTitle(attributedTitleTwo, for: .normal)
         
-        // deleteAllProfessionals();
+        //deleteAllProfessionals();
         
         if !doesAnyProfessionalExist() {
             addProfessional(name: "Jesmani", phoneNumber: "1234567891", address: "1019 East Lemon Street", expertise: "Professional mentors")
             addProfessional(name: "Brittany", phoneNumber: "234467891", address: "140 East Rio Salado Parkway", expertise: "Support groups")
-            addProfessional(name: "Kennedy", phoneNumber: "543213768", address: "2000 East Rio Salado Parkway", expertise: "Parol officer")
+            addProfessional(name: "Kennedy", phoneNumber: "543213768", address: "2000 East Rio Salado Parkway", expertise: "Parole officer")
             addProfessional(name: "Marley", phoneNumber: "321333222", address: "2065 East University Drive", expertise: "Professional mentors")
             addProfessional(name: "Harits", phoneNumber: "231111222", address: "712 South Forest Ave, Tempe AZ 85281", expertise: "Professional mentors")
             addProfessional(name: "Omar", phoneNumber: "22221111", address: "131 East 6th Street, Tempe AZ 85281", expertise: "Religious support")
             addProfessional(name: "Adeline", phoneNumber: "1111111", address: "730 North Street Mills Avenue, Tempe AZ 85281", expertise: "Religious support")
+            addProfessional(name: "Anthony", phoneNumber: "4802345678", address: "350 S Mill Ave, Tempe AZ 85281", expertise: "Professional mentors")
+            addProfessional(name: "ASU Health Service", phoneNumber: "6234355678", address: "451 E University Dr, Tempe AZ  85281", expertise: "Support groups")
         }
 
         fetchUsers()

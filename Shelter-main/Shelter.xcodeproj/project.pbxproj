@@ -20,6 +20,7 @@
 		048E071429FCEDCB00E3E37D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E071329FCEDCB00E3E37D /* HomeViewController.swift */; };
 		048E071829FD0E8A00E3E37D /* SearchPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E071729FD0E8A00E3E37D /* SearchPageViewController.swift */; };
 		790633F729E81A4200CCAA88 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7929D5EF29E81366008AAECE /* SignUpViewController.swift */; };
+		7909D3572A010AF400D5340B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7909D3562A010AF400D5340B /* MapViewController.swift */; };
 		7934609129DA24A700247942 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7934609029DA24A700247942 /* AppDelegate.swift */; };
 		7934609329DA24A700247942 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7934609229DA24A700247942 /* SceneDelegate.swift */; };
 		7934609529DA24A700247942 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7934609429DA24A700247942 /* ViewController.swift */; };
@@ -28,7 +29,6 @@
 		7934609D29DA24A800247942 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7934609B29DA24A800247942 /* LaunchScreen.storyboard */; };
 		79B81B8129E899FC00CE8BB5 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B81B8029E899FC00CE8BB5 /* CustomTabBar.swift */; };
 		79DA44B129F5EDB4001C9011 /* ShelterDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79DA44AF29F5EDB4001C9011 /* ShelterDataModel.xcdatamodeld */; };
-		79DA44B729F6168C001C9011 /* FindProfessionalsNearMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA44B629F6168C001C9011 /* FindProfessionalsNearMe.swift */; };
 		79F13E9529E901610096BF63 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F13E9429E901610096BF63 /* CustomTabBarController.swift */; };
 		79F13E9929E9099B0096BF63 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F13E9829E9099B0096BF63 /* UITextField+Extensions.swift */; };
 		79F13E9D29E93CD70096BF63 /* TransparentContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F13E9C29E93CD70096BF63 /* TransparentContainerView.swift */; };
@@ -48,6 +48,7 @@
 		048372CC29F2250500CB510D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		048E071329FCEDCB00E3E37D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		048E071729FD0E8A00E3E37D /* SearchPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageViewController.swift; sourceTree = "<group>"; };
+		7909D3562A010AF400D5340B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7929D5EF29E81366008AAECE /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		7934608D29DA24A700247942 /* Shelter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7934609029DA24A700247942 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,7 +60,6 @@
 		7934609E29DA24A800247942 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79B81B8029E899FC00CE8BB5 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		79DA44B029F5EDB4001C9011 /* ShelterDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShelterDataModel.xcdatamodel; sourceTree = "<group>"; };
-		79DA44B629F6168C001C9011 /* FindProfessionalsNearMe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindProfessionalsNearMe.swift; sourceTree = "<group>"; };
 		79F13E9429E901610096BF63 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		79F13E9829E9099B0096BF63 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		79F13E9C29E93CD70096BF63 /* TransparentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentContainerView.swift; sourceTree = "<group>"; };
@@ -103,8 +103,8 @@
 				7934609429DA24A700247942 /* ViewController.swift */,
 				048E071329FCEDCB00E3E37D /* HomeViewController.swift */,
 				7934609629DA24A700247942 /* Main.storyboard */,
+				7909D3562A010AF400D5340B /* MapViewController.swift */,
 				048372C829F1CADC00CB510D /* Quiz.swift */,
-				79DA44B629F6168C001C9011 /* FindProfessionalsNearMe.swift */,
 				79DA44AF29F5EDB4001C9011 /* ShelterDataModel.xcdatamodeld */,
 				040E2EC829EDFEFF00F215F1 /* QuizViewController.swift */,
 				048372C629F1C90400CB510D /* QuestionViewController.swift */,
@@ -202,7 +202,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79DA44B729F6168C001C9011 /* FindProfessionalsNearMe.swift in Sources */,
 				79F13E9929E9099B0096BF63 /* UITextField+Extensions.swift in Sources */,
 				040E2EC929EDFEFF00F215F1 /* QuizViewController.swift in Sources */,
 				048372C729F1C90400CB510D /* QuestionViewController.swift in Sources */,
@@ -210,6 +209,7 @@
 				048E071429FCEDCB00E3E37D /* HomeViewController.swift in Sources */,
 				79F13E9D29E93CD70096BF63 /* TransparentContainerView.swift in Sources */,
 				7934609529DA24A700247942 /* ViewController.swift in Sources */,
+				7909D3572A010AF400D5340B /* MapViewController.swift in Sources */,
 				048372CB29F1CEC300CB510D /* QuizResultViewController.swift in Sources */,
 				79DA44B129F5EDB4001C9011 /* ShelterDataModel.xcdatamodeld in Sources */,
 				040E2EE229EF5A0C00F215F1 /* InsideStrokeButton.swift in Sources */,

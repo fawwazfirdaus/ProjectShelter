@@ -10,6 +10,8 @@
 		<string>Inter-Medium.ttf</string>
 		<string>Inter-Bold.ttf</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To show nearby professionals</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

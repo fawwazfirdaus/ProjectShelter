@@ -82,8 +82,21 @@ class ViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizer
         let attributedTitleTwo = NSMutableAttributedString(string: logInButtonText, attributes: part2Attributes)
         logInButton.setAttributedTitle(attributedTitleTwo, for: .normal)
         
+        deleteAllProfessionals();
+        
+        if !doesAnyProfessionalExist() {
+            addProfessional(name: "Jesmani", phoneNumber: "1234567891", address: "1019 East Lemon Street", expertise: "Professional mentors")
+            addProfessional(name: "Brittany", phoneNumber: "234467891", address: "140 East Rio Salado Parkway", expertise: "Support groups")
+            addProfessional(name: "Kennedy", phoneNumber: "543213768", address: "2000 East Rio Salado Parkway", expertise: "Parol officer")
+            addProfessional(name: "Marley", phoneNumber: "321333222", address: "2065 East University Drive", expertise: "Professional mentors")
+            addProfessional(name: "Harits", phoneNumber: "231111222", address: "712 South Forest Ave, Tempe AZ 85281", expertise: "Professional mentors")
+            addProfessional(name: "Omar", phoneNumber: "22221111", address: "131 East 6th Street, Tempe AZ 85281", expertise: "Religious support")
+            addProfessional(name: "Adeline", phoneNumber: "1111111", address: "730 North Street Mills Avenue, Tempe AZ 85281", expertise: "Religious support")
+        }
 
         fetchUsers()
+        printAllProfessionals()
+
     }
 
 
@@ -178,5 +191,88 @@ class ViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizer
         }
     }
     
+    func addProfessional(name: String, phoneNumber: String, address: String, expertise: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Professionals", in: managedContext)!
+        let professional = NSManagedObject(entity: entity, insertInto: managedContext) as! Professionals
+        
+        professional.name = name
+        professional.phoneNumber = phoneNumber
+        professional.address = address
+        professional.expertise = expertise
+        
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not save the professional. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func printAllProfessionals() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Professionals")
+
+        do {
+            let professionals = try managedContext.fetch(fetchRequest) as! [Professionals]
+            for professional in professionals {
+                guard let name = professional.name,
+                      let phoneNumber = professional.phoneNumber,
+                      let address = professional.address,
+                      let expertise = professional.expertise else {
+                    continue
+                }
+                print("Name: \(name)")
+                print("Phone Number: \(phoneNumber)")
+                print("Address: \(address)")
+                print("Expertise: \(expertise)")
+                print("------------------------")
+            }
+        } catch let error as NSError {
+            print("Could not fetch professionals. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func doesAnyProfessionalExist() -> Bool {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return false
+        }
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Professionals")
+
+        do {
+            let professionals = try managedContext.fetch(fetchRequest) as! [Professionals]
+            return professionals.count > 0
+        } catch let error as NSError {
+            print("Could not fetch professionals. \(error), \(error.userInfo)")
+            return false
+        }
+    }
+    
+    func deleteAllProfessionals() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Professionals")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try managedContext.execute(batchDeleteRequest)
+            print("All professionals deleted successfully")
+        } catch let error as NSError {
+            print("Could not delete professionals. \(error), \(error.userInfo)")
+        }
+    }
+
 }
 
